@@ -15,15 +15,30 @@ class Food:
         self.rect = self.image.get_rect()
 
         # 隨機獲得圖片中心橫縱座標
-        # （randint獲得10~490的int型別隨機數，包括10和490）
+        # （randint獲得10~690的int型別隨機數，包括10和690）
         # （rect.centerx為中心橫座標）
-        self.rect.centerx = random.randint(20, 480)
-        self.rect.centery = random.randint(20, 480)
+        self.rect.centerx = random.randint(20, 680)
+        self.rect.centery = random.randint(20, 680)
+
 
     def reinit(self):
         """ 隨機獲得一個食物，並返回食物座標"""
-        self.rect.centerx = random.randint(20, 480)
-        self.rect.centery = random.randint(20, 480)
+        # while True:
+        #     check_spot = [True, True]
+        self.rect.centerx = random.randint(20, 680)
+        self.rect.centery = random.randint(20, 680)
+        #     for i in range(20):
+        #         for j in range(20):
+        #             if self.rect.centerx == pre_food1[0]-10+i:
+        #                 check_spot[0] = False
+        #             if self.rect.centery != pre_food1[1]-10+j:
+        #                 check_spot[1] = False
+        #     if check_spot == [False, False]:
+        #         continue
+        #     else:
+        #         break
+        # global pre_food1
+        # pre_food1 = [self.rect.centerx, self.rect.centery]
         return [self.rect.centerx, self.rect.centery]
 
     def position(self):
@@ -35,9 +50,7 @@ class Food:
         """返回外接矩矩形"""
 
         return self.rect
-    def start_blitball(self):
-        self.screen.blit(self.image, self.rect)
-        self.screen.blit(self.image, self.rect)
+
 
     def blitball(self):
         """在指定位置繪製食物"""
@@ -112,8 +125,8 @@ class Settings():
     def __init__(self):
         """初始化遊戲的設定"""
         # 設定螢幕大小
-        self.screen_width = 500
-        self.screen_height = 500
+        self.screen_width = 700
+        self.screen_height = 700
         # 設定螢幕背景色
         self.bg_color = [255, 255, 240]
         # 設定蛇移動速度（幀數）
@@ -157,18 +170,18 @@ class Snake:
             self.poslist[0][1] -= 32
             # 設定可以穿牆
             if self.poslist[0][1] < 0:
-                self.poslist[0][1] = 485
+                self.poslist[0][1] = 685
         if new_direction is 'D':
             self.poslist[0][1] += 32
-            if self.poslist[0][1] > 485:
+            if self.poslist[0][1] > 685:
                 self.poslist[0][1] = 0
         if new_direction is 'L':
             self.poslist[0][0] -= 32
             if self.poslist[0][0] < 0:
-                self.poslist[0][0] = 485
+                self.poslist[0][0] = 685
         if new_direction is 'R':
             self.poslist[0][0] += 32
-            if self.poslist[0][0] > 485:
+            if self.poslist[0][0] > 685:
                 self.poslist[0][0] = 0
 
     def eatfood(self, foodrect): #蛇頭（poslist[0]）變吃掉食物的座標
@@ -287,7 +300,7 @@ def run_game():
             score_text = socre_font.render("score : "+str(score),True,(255,0,0))
             score_rect = score_text.get_rect()
             # 設定字型位置
-            score_rect.centerx = 450
+            score_rect.centerx = 650
             score_rect.centery = 10
             screen.blit(score_text, score_rect)
 
