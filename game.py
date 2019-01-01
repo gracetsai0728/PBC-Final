@@ -5,7 +5,7 @@ import random
 class Food:
     """食物類"""
 
-    def __init__(self, screen,picture):
+    def __init__(self, screen, picture):
         """隨機初始化第一個食物的位置"""
         self.screen = screen
 
@@ -35,8 +35,11 @@ class Food:
         """返回外接矩矩形"""
 
         return self.rect
+    def start_blitball(self):
+        self.screen.blit(self.image, self.rect)
+        self.screen.blit(self.image, self.rect)
 
-    def blitme(self):
+    def blitball(self):
         """在指定位置繪製食物"""
         self.screen.blit(self.image, self.rect) #blit(image,要繪製的位置)
 
@@ -226,7 +229,9 @@ def run_game():
     while restart:
         # 類的例項
         snake = Snake(screen)
-        food = Food(screen, food_image_list[0])
+        food1 = Food(screen, food_image_list[0])
+        food2 = Food(screen, food_image_list[1])
+        food3 = Food(screen, food_image_list[2])
         running = True
         # 是否遊戲結束
         while running:
@@ -237,19 +242,46 @@ def run_game():
             # 控制迴圈幀數，引數為每秒幀數
             time_pass = clock.tick(run_settings.speed)
             # 接受食物圖片的外接矩形
-            food_rect = food.foodrect()
+            food1_rect = food1.foodrect()
+            food2_rect = food2.foodrect()
+            food3_rect = food3.foodrect()
             # 繪製這個食物
-            food.blitme()
+            food1.blitball()
+            food2.blitball()
+            food3.blitball()
             # 繪製蛇
             poslist = snake.position()
             snake.draw_snake(poslist)
             head_rect = poslist[0]
             # 吃到食物
-            if food_rect.colliderect(head_rect):
-                snake.eatfood(food_rect)
-                food.reinit()
+            if food1_rect.colliderect(head_rect):
+                snake.eatfood(food1_rect)
+                food1.reinit()
                 score += 1
-                food=Food(screen,food_image_list[score%20])
+                if score % 20 == 18 or score % 20 == 19:
+                    food1 = Food(screen, food_image_list[score%20])
+                else:
+                    food1 = Food(screen, food_image_list[(score % 20)+2])
+
+
+            if food2_rect.colliderect(head_rect):
+                snake.eatfood(food2_rect)
+                food2.reinit()
+                score += 1
+                if score % 20 == 18 or score % 20 == 19:
+                    food2 = Food(screen, food_image_list[score%20])
+                else:
+                    food2 = Food(screen, food_image_list[(score % 20)+2])
+
+            if food3_rect.colliderect(head_rect):
+                snake.eatfood(food3_rect)
+                food3.reinit()
+                score += 1
+                if score % 20 == 18 or score % 20 == 19:
+                    food3 = Food(screen, food_image_list[score%20])
+                else:
+                    food3 = Food(screen, food_image_list[(score % 20)+2])
+
 
             # 列印內容 引數：字串、是否平滑、顏色
             score_text = socre_font.render("score : "+str(score),True,(255,0,0))
