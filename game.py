@@ -2,6 +2,9 @@ import pygame
 import random
 
 
+pre_food1 = [1000000, 100000000]
+pre_food2 = [1000000, 100000000]
+pre_food3 = [1000000, 100000000]
 class Food:
     """食物類"""
 
@@ -21,24 +24,97 @@ class Food:
         self.rect.centery = random.randint(20, 680)
 
 
-    def reinit(self):
+    def reinit1(self):
         """ 隨機獲得一個食物，並返回食物座標"""
-        # while True:
-        #     check_spot = [True, True]
-        self.rect.centerx = random.randint(20, 680)
-        self.rect.centery = random.randint(20, 680)
-        #     for i in range(20):
-        #         for j in range(20):
-        #             if self.rect.centerx == pre_food1[0]-10+i:
-        #                 check_spot[0] = False
-        #             if self.rect.centery != pre_food1[1]-10+j:
-        #                 check_spot[1] = False
-        #     if check_spot == [False, False]:
-        #         continue
-        #     else:
-        #         break
-        # global pre_food1
-        # pre_food1 = [self.rect.centerx, self.rect.centery]
+        global pre_food1
+        global pre_food2
+        global pre_food3
+        while True:
+            check_spot1 = [True, True]
+            check_spot2 = [True, True]
+            self.rect.centerx = random.randint(20, 680)
+            self.rect.centery = random.randint(20, 680)
+            for i in range(40):
+                for j in range(40):
+                    if self.rect.centerx == pre_food2[0]-20+i:
+                        check_spot1[0] = False
+                    if self.rect.centery != pre_food2[1]-20+j:
+                        check_spot1[1] = False
+            if check_spot1 == [False, False]:
+                continue
+            for i in range(40):
+                for j in range(40):
+                    if self.rect.centerx == pre_food3[0]-20+i:
+                        check_spot2[0] = False
+                    if self.rect.centery != pre_food3[1]-20+j:
+                        check_spot2[1] = False
+            if check_spot2 == [False, False]:
+                continue
+            else:
+                break
+        pre_food1 = [self.rect.centerx, self.rect.centery]
+        return [self.rect.centerx, self.rect.centery]
+
+    def reinit2(self):
+        """ 隨機獲得一個食物，並返回食物座標"""
+        global pre_food1
+        global pre_food2
+        global pre_food3
+        while True:
+            check_spot1 = [True, True]
+            check_spot2 = [True, True]
+            self.rect.centerx = random.randint(20, 680)
+            self.rect.centery = random.randint(20, 680)
+            for i in range(40):
+                for j in range(40):
+                    if self.rect.centerx == pre_food1[0]-20+i:
+                        check_spot1[0] = False
+                    if self.rect.centery != pre_food1[1]-20+j:
+                        check_spot1[1] = False
+            if check_spot1 == [False, False]:
+                continue
+            for i in range(40):
+                for j in range(40):
+                    if self.rect.centerx == pre_food3[0]-20+i:
+                        check_spot2[0] = False
+                    if self.rect.centery != pre_food3[1]-20+j:
+                        check_spot2[1] = False
+            if check_spot2 == [False, False]:
+                continue
+            else:
+                break
+        pre_food2 = [self.rect.centerx, self.rect.centery]
+        return [self.rect.centerx, self.rect.centery]
+
+    def reinit3(self):
+        """ 隨機獲得一個食物，並返回食物座標"""
+        global pre_food1
+        global pre_food2
+        global pre_food3
+        while True:
+            check_spot1 = [True, True]
+            check_spot2 = [True, True]
+            self.rect.centerx = random.randint(20, 680)
+            self.rect.centery = random.randint(20, 680)
+            for i in range(40):
+                for j in range(40):
+                    if self.rect.centerx == pre_food1[0]-20+i:
+                        check_spot1[0] = False
+                    if self.rect.centery != pre_food1[1]-20+j:
+                        check_spot1[1] = False
+            if check_spot1 == [False, False]:
+                continue
+            for i in range(40):
+                for j in range(40):
+                    if self.rect.centerx == pre_food2[0]-20+i:
+                        check_spot2[0] = False
+                    if self.rect.centery != pre_food2[1]-20+j:
+                        check_spot2[1] = False
+            if check_spot2 == [False, False]:
+                continue
+            else:
+                break
+        pre_food3 = [self.rect.centerx, self.rect.centery]
         return [self.rect.centerx, self.rect.centery]
 
     def position(self):
@@ -269,7 +345,7 @@ def run_game():
             # 吃到食物
             if food1_rect.colliderect(head_rect):
                 snake.eatfood(food1_rect)
-                food1.reinit()
+                food1.reinit1()
                 score += 1
                 if score % 20 == 18 or score % 20 == 19:
                     food1 = Food(screen, food_image_list[score%20])
@@ -279,7 +355,7 @@ def run_game():
 
             if food2_rect.colliderect(head_rect):
                 snake.eatfood(food2_rect)
-                food2.reinit()
+                food2.reinit2()
                 score += 1
                 if score % 20 == 18 or score % 20 == 19:
                     food2 = Food(screen, food_image_list[score%20])
@@ -288,7 +364,7 @@ def run_game():
 
             if food3_rect.colliderect(head_rect):
                 snake.eatfood(food3_rect)
-                food3.reinit()
+                food3.reinit3()
                 score += 1
                 if score % 20 == 18 or score % 20 == 19:
                     food3 = Food(screen, food_image_list[score%20])
