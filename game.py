@@ -1,7 +1,7 @@
 import pygame
 import random
 
-
+#幫最初的位置座標假設一個不影響會影響到後面座標的值
 pre_food1 = [1000000, 100000000]
 pre_food2 = [1000000, 100000000]
 pre_food3 = [1000000, 100000000]
@@ -26,6 +26,7 @@ class Food:
 
     def reinit1(self):
         """ 隨機獲得一個食物，並返回食物座標"""
+        #pre_food1,2,3用來記錄螢幕上還存在的點的座標，使新出現的球不會與舊的重疊
         global pre_food1
         global pre_food2
         global pre_food3
