@@ -1,10 +1,11 @@
 import pygame
 import random
 
-#幫最初的位置座標假設一個不影響會影響到後面座標的值
+#我先假設三個食物一開始的座標不會影響到後面的座標
 pre_food1 = [1000000, 100000000]
 pre_food2 = [1000000, 100000000]
 pre_food3 = [1000000, 100000000]
+
 class Food:
     """食物類"""
 
@@ -20,13 +21,12 @@ class Food:
         # 隨機獲得圖片中心橫縱座標
         # （randint獲得10~690的int型別隨機數，包括10和690）
         # （rect.centerx為中心橫座標）
-        self.rect.centerx = random.randint(20, 680)
+        self.rect.centerx = random.randint(20, 680)#------------------明明後面就要寫了，為什麼我前面還要再寫一遍？？？
         self.rect.centery = random.randint(20, 680)
 
-
+#隨機跑出第一個圖形
     def reinit1(self):
         """ 隨機獲得一個食物，並返回食物座標"""
-        #pre_food1,2,3用來記錄螢幕上還存在的點的座標，使新出現的球不會與舊的重疊
         global pre_food1
         global pre_food2
         global pre_food3
@@ -207,7 +207,7 @@ class Settings():
         # 設定螢幕背景色
         self.bg_color = [255, 255, 240]
         # 設定蛇移動速度（幀數）
-        self.speed = 7
+        self.speed = 3
         # 設定蛇的顏色
         self.snake_color = [50, 0, 0]
 
@@ -272,7 +272,7 @@ class Snake:
             if i ==0:
                 self.screen.blit(self.headimage, (poslist[i]))
             else:
-                self.screen.blit(self.bodyimage,(poslist[i]))
+                self.screen.blit(self.bodyimage, (poslist[i]))
 
 
 # 匯入其他檔案的類、函式
@@ -293,8 +293,10 @@ def run_game():
     restart = True
     # 建立字型物件，繪製文字，返回surface。引數一：字型  引數二：字號
     socre_font = pygame.font.Font(None, 28)
+    level_font = pygame.font.Font(None, 28)
     # 記錄分數
     score = 0
+    level = 1
     # 是否重開
     food_image_list=['./1.png',
                      './2.png',
@@ -343,11 +345,13 @@ def run_game():
             poslist = snake.position()
             snake.draw_snake(poslist)
             head_rect = poslist[0]
+
             # 吃到食物
             if food1_rect.colliderect(head_rect):
                 snake.eatfood(food1_rect)
                 food1.reinit1()
                 score += 1
+                level += 1
                 if score % 20 == 18 or score % 20 == 19:
                     food1 = Food(screen, food_image_list[score%20])
                 else:
@@ -358,6 +362,7 @@ def run_game():
                 snake.eatfood(food2_rect)
                 food2.reinit2()
                 score += 1
+                level += 1
                 if score % 20 == 18 or score % 20 == 19:
                     food2 = Food(screen, food_image_list[score%20])
                 else:
@@ -367,19 +372,34 @@ def run_game():
                 snake.eatfood(food3_rect)
                 food3.reinit3()
                 score += 1
+                level += 1
                 if score % 20 == 18 or score % 20 == 19:
                     food3 = Food(screen, food_image_list[score%20])
                 else:
                     food3 = Food(screen, food_image_list[(score % 20)+2])
-
+            if level >2 and level <= 8:
+                run_settings.speed = 5
+            if level >8 and level <= 13:
+                run_settings.speed = 7
+            if level >13 and level <=30:
+                run_settings.speed = 10
+            if level >30:
+                run_settings.speed = 12
+            
 
             # 列印內容 引數：字串、是否平滑、顏色
             score_text = socre_font.render("score : "+str(score),True,(255,0,0))
             score_rect = score_text.get_rect()
+            level_text = level_font.render("level : "+str(level),True,(255,0,0))
+            level_rect = level_text.get_rect()
             # 設定字型位置
             score_rect.centerx = 650
             score_rect.centery = 10
             screen.blit(score_text, score_rect)
+
+            level_rect.centerx = 550
+            level_rect.centery = 10
+            screen.blit(level_text, level_rect)
 
             # 檢測是否撞到自己 （蛇頭和身體位置是否重合）
             head_rect = poslist[0]
