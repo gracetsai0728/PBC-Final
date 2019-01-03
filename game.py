@@ -9,7 +9,7 @@ pre_food3 = [1000000, 100000000]
 class Food:
     """食物類"""
 
-    def __init__(self, screen, picture, level):
+    def __init__(self, screen, picture):
         """隨機初始化第一個食物的位置"""
         self.screen = screen
 
@@ -17,8 +17,6 @@ class Food:
         self.image = pygame.image.load(picture)
         # 獲得圖片外接矩陣
         self.rect = self.image.get_rect()
-
-        self.level = level
 
         # 隨機獲得圖片中心橫縱座標
         # （randint獲得10~690的int型別隨機數，包括10和690）
@@ -134,7 +132,6 @@ class Food:
     def blitball(self):
         """在指定位置繪製食物"""
         self.screen.blit(self.image, self.rect) #blit(image,要繪製的位置)
-
 
 
 
@@ -324,9 +321,9 @@ def run_game():
     while restart:
         # 類的例項
         snake = Snake(screen)
-        food1 = Food(screen, food_image_list[0], 1)
-        food2 = Food(screen, food_image_list[1], 2)
-        food3 = Food(screen, food_image_list[2], 3)
+        food1 = Food(screen, food_image_list[0])
+        food2 = Food(screen, food_image_list[1])
+        food3 = Food(screen, food_image_list[2])
         running = True
         # 是否遊戲結束
         while running:
@@ -351,45 +348,35 @@ def run_game():
 
             # 吃到食物
             if food1_rect.colliderect(head_rect):
-                if food1.level > level:
-                    running = False
+                snake.eatfood(food1_rect)
+                food1.reinit1()
+                score += 1
+                level += 1
+                if score % 20 == 18 or score % 20 == 19:
+                    food1 = Food(screen, food_image_list[score%20])
                 else:
-                    snake.eatfood(food1_rect)
-                    food1.reinit1()
-                    score += 1
-                    level += 1
-                    if score % 20 == 18 or score % 20 == 19:
-                        food1 = Food(screen, food_image_list[score%20], (score%20)+1)
-                    else:
-                        food1 = Food(screen, food_image_list[(score % 20)+2], (score%20)+3)
+                    food1 = Food(screen, food_image_list[(score % 20)+2])
 
 
             if food2_rect.colliderect(head_rect):
-                if food2.level > level:
-                    running = False
+                snake.eatfood(food2_rect)
+                food2.reinit2()
+                score += 1
+                level += 1
+                if score % 20 == 18 or score % 20 == 19:
+                    food2 = Food(screen, food_image_list[score%20])
                 else:
-                    snake.eatfood(food2_rect)
-                    food2.reinit2()
-                    score += 1
-                    level += 1
-                    if score % 20 == 18 or score % 20 == 19:
-                        food2 = Food(screen, food_image_list[score%20], (score%20)+1)
-                    else:
-                        food2 = Food(screen, food_image_list[(score % 20)+2], (score%20)+3)
+                    food2 = Food(screen, food_image_list[(score % 20)+2])
 
             if food3_rect.colliderect(head_rect):
-                if food3.level > level:
-                    running = False
+                snake.eatfood(food3_rect)
+                food3.reinit3()
+                score += 1
+                level += 1
+                if score % 20 == 18 or score % 20 == 19:
+                    food3 = Food(screen, food_image_list[score%20])
                 else:
-                    snake.eatfood(food3_rect)
-                    food3.reinit3()
-                    score += 1
-                    level += 1
-                    if score % 20 == 18 or score % 20 == 19:
-                        food3 = Food(screen, food_image_list[score%20], (score%20)+1)
-                    else:
-                        food3 = Food(screen, food_image_list[(score % 20)+2], (score%20)+3)
-
+                    food3 = Food(screen, food_image_list[(score % 20)+2])
             if level >2 and level <= 8:
                 run_settings.speed = 5
             if level >8 and level <= 13:
