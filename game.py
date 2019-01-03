@@ -22,7 +22,7 @@ class Food:
         # （randint獲得10~690的int型別隨機數，包括10和690）
         # （rect.centerx為中心橫座標）
         self.rect.centerx = random.randint(20, 680)#------------------明明後面就要寫了，為什麼我前面還要再寫一遍？？？
-        self.rect.centery = random.randint(20, 680)
+        self.rect.centery = random.randint(20, 680)#這個是最開始的方程式，後面的是刷新的方程式，這裡不寫全部的食物都會卡在左上角
 
 #隨機跑出第一個圖形
     def reinit1(self):
@@ -39,7 +39,7 @@ class Food:
                 for j in range(40):
                     if self.rect.centerx == pre_food2[0]-20+i:
                         check_spot1[0] = False
-                    if self.rect.centery != pre_food2[1]-20+j:
+                    if self.rect.centery == pre_food2[1]-20+j:
                         check_spot1[1] = False
             if check_spot1 == [False, False]:
                 continue
@@ -47,7 +47,7 @@ class Food:
                 for j in range(40):
                     if self.rect.centerx == pre_food3[0]-20+i:
                         check_spot2[0] = False
-                    if self.rect.centery != pre_food3[1]-20+j:
+                    if self.rect.centery == pre_food3[1]-20+j:
                         check_spot2[1] = False
             if check_spot2 == [False, False]:
                 continue
@@ -70,7 +70,7 @@ class Food:
                 for j in range(40):
                     if self.rect.centerx == pre_food1[0]-20+i:
                         check_spot1[0] = False
-                    if self.rect.centery != pre_food1[1]-20+j:
+                    if self.rect.centery == pre_food1[1]-20+j:
                         check_spot1[1] = False
             if check_spot1 == [False, False]:
                 continue
@@ -78,7 +78,7 @@ class Food:
                 for j in range(40):
                     if self.rect.centerx == pre_food3[0]-20+i:
                         check_spot2[0] = False
-                    if self.rect.centery != pre_food3[1]-20+j:
+                    if self.rect.centery == pre_food3[1]-20+j:
                         check_spot2[1] = False
             if check_spot2 == [False, False]:
                 continue
@@ -101,7 +101,7 @@ class Food:
                 for j in range(40):
                     if self.rect.centerx == pre_food1[0]-20+i:
                         check_spot1[0] = False
-                    if self.rect.centery != pre_food1[1]-20+j:
+                    if self.rect.centery == pre_food1[1]-20+j:
                         check_spot1[1] = False
             if check_spot1 == [False, False]:
                 continue
@@ -109,7 +109,7 @@ class Food:
                 for j in range(40):
                     if self.rect.centerx == pre_food2[0]-20+i:
                         check_spot2[0] = False
-                    if self.rect.centery != pre_food2[1]-20+j:
+                    if self.rect.centery == pre_food2[1]-20+j:
                         check_spot2[1] = False
             if check_spot2 == [False, False]:
                 continue
