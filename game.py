@@ -26,7 +26,7 @@ class Food:
         self.rect.centerx = random.randint(20, 680)#------------------明明後面就要寫了，為什麼我前面還要再寫一遍？？？
         self.rect.centery = random.randint(20, 680)#這個是最開始的方程式，後面的是刷新的方程式，這裡不寫全部的食物都會卡在左上角
 
-#隨機跑出第一個圖形
+#重刷後隨機跑出一個圖形
     def reinit1(self):
         """ 隨機獲得一個食物，並返回食物座標"""
         global pre_food1
