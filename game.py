@@ -1,11 +1,15 @@
 import pygame
 import random
 
+#先假設三個食物一開始的座標不會影響到後面的座標
+pre_food1 = [1000000, 100000000]
+pre_food2 = [1000000, 100000000]
+pre_food3 = [1000000, 100000000]
 
 class Food:
     """食物類"""
 
-    def __init__(self, screen,picture):
+    def __init__(self, screen, picture, level):
         """隨機初始化第一個食物的位置"""
         self.screen = screen
 
@@ -13,17 +17,107 @@ class Food:
         self.image = pygame.image.load(picture)
         # 獲得圖片外接矩陣
         self.rect = self.image.get_rect()
+        #使傳進來的每張圖片獲得對應的等級
+        self.level = level
 
         # 隨機獲得圖片中心橫縱座標
-        # （randint獲得10~490的int型別隨機數，包括10和490）
+        # （randint獲得10~690的int型別隨機數，包括10和690）
         # （rect.centerx為中心橫座標）
-        self.rect.centerx = random.randint(20, 480)
-        self.rect.centery = random.randint(20, 480)
+        self.rect.centerx = random.randint(20, 680)#------------------明明後面就要寫了，為什麼我前面還要再寫一遍？？？
+        self.rect.centery = random.randint(20, 680)#這個是最開始的方程式，後面的是刷新的方程式，這裡不寫全部的食物都會卡在左上角
 
-    def reinit(self):
+#重刷後隨機跑出一個圖形
+    def reinit1(self):
         """ 隨機獲得一個食物，並返回食物座標"""
-        self.rect.centerx = random.randint(20, 480)
-        self.rect.centery = random.randint(20, 480)
+        global pre_food1
+        global pre_food2
+        global pre_food3
+        while True:
+            check_spot1 = [True, True]
+            check_spot2 = [True, True]
+            self.rect.centerx = random.randint(20, 680)
+            self.rect.centery = random.randint(20, 680)
+            for i in range(40):
+                for j in range(40):
+                    if self.rect.centerx == pre_food2[0]-20+i:
+                        check_spot1[0] = False
+                    if self.rect.centery == pre_food2[1]-20+j:
+                        check_spot1[1] = False
+            if check_spot1 == [False, False]:
+                continue
+            for i in range(40):
+                for j in range(40):
+                    if self.rect.centerx == pre_food3[0]-20+i:
+                        check_spot2[0] = False
+                    if self.rect.centery == pre_food3[1]-20+j:
+                        check_spot2[1] = False
+            if check_spot2 == [False, False]:
+                continue
+            else:
+                break
+        pre_food1 = [self.rect.centerx, self.rect.centery]
+        return [self.rect.centerx, self.rect.centery]
+
+    def reinit2(self):
+        """ 隨機獲得一個食物，並返回食物座標"""
+        global pre_food1
+        global pre_food2
+        global pre_food3
+        while True:
+            check_spot1 = [True, True]
+            check_spot2 = [True, True]
+            self.rect.centerx = random.randint(20, 680)
+            self.rect.centery = random.randint(20, 680)
+            for i in range(40):
+                for j in range(40):
+                    if self.rect.centerx == pre_food1[0]-20+i:
+                        check_spot1[0] = False
+                    if self.rect.centery == pre_food1[1]-20+j:
+                        check_spot1[1] = False
+            if check_spot1 == [False, False]:
+                continue
+            for i in range(40):
+                for j in range(40):
+                    if self.rect.centerx == pre_food3[0]-20+i:
+                        check_spot2[0] = False
+                    if self.rect.centery == pre_food3[1]-20+j:
+                        check_spot2[1] = False
+            if check_spot2 == [False, False]:
+                continue
+            else:
+                break
+        pre_food2 = [self.rect.centerx, self.rect.centery]
+        return [self.rect.centerx, self.rect.centery]
+
+    def reinit3(self):
+        """ 隨機獲得一個食物，並返回食物座標"""
+        global pre_food1
+        global pre_food2
+        global pre_food3
+        while True:
+            check_spot1 = [True, True]
+            check_spot2 = [True, True]
+            self.rect.centerx = random.randint(20, 680)
+            self.rect.centery = random.randint(20, 680)
+            for i in range(40):
+                for j in range(40):
+                    if self.rect.centerx == pre_food1[0]-20+i:
+                        check_spot1[0] = False
+                    if self.rect.centery == pre_food1[1]-20+j:
+                        check_spot1[1] = False
+            if check_spot1 == [False, False]:
+                continue
+            for i in range(40):
+                for j in range(40):
+                    if self.rect.centerx == pre_food2[0]-20+i:
+                        check_spot2[0] = False
+                    if self.rect.centery == pre_food2[1]-20+j:
+                        check_spot2[1] = False
+            if check_spot2 == [False, False]:
+                continue
+            else:
+                break
+        pre_food3 = [self.rect.centerx, self.rect.centery]
         return [self.rect.centerx, self.rect.centery]
 
     def position(self):
@@ -36,9 +130,10 @@ class Food:
 
         return self.rect
 
-    def blitme(self):
+    def blitball(self):
         """在指定位置繪製食物"""
         self.screen.blit(self.image, self.rect) #blit(image,要繪製的位置)
+
 
 
 
@@ -109,12 +204,12 @@ class Settings():
     def __init__(self):
         """初始化遊戲的設定"""
         # 設定螢幕大小
-        self.screen_width = 500
-        self.screen_height = 500
+        self.screen_width = 700
+        self.screen_height = 700
         # 設定螢幕背景色
         self.bg_color = [255, 255, 240]
         # 設定蛇移動速度（幀數）
-        self.speed = 7
+        self.speed = 3
         # 設定蛇的顏色
         self.snake_color = [50, 0, 0]
 
@@ -153,6 +248,7 @@ class Snake:
         if new_direction is 'U':
             self.poslist[0][1] -= 32
             # 設定可以穿牆
+
             #if self.poslist[0][1] < 0:
                 #self.poslist[0][1] = 485
         if new_direction is 'D':
@@ -168,6 +264,21 @@ class Snake:
             #if self.poslist[0][0] > 485:
                 #self.poslist[0][0] = 0
 
+            if self.poslist[0][1] < 0:
+                self.poslist[0][1] = 685
+        if new_direction is 'D':
+            self.poslist[0][1] += 32
+            if self.poslist[0][1] > 685:
+                self.poslist[0][1] = 0
+        if new_direction is 'L':
+            self.poslist[0][0] -= 32
+            if self.poslist[0][0] < 0:
+                self.poslist[0][0] = 685
+        if new_direction is 'R':
+            self.poslist[0][0] += 32
+            if self.poslist[0][0] > 685:
+                self.poslist[0][0] = 0
+
     def eatfood(self, foodrect): #蛇頭（poslist[0]）變吃掉食物的座標
         """吃掉食物並加入列表"""
 
@@ -180,6 +291,10 @@ class Snake:
                 self.screen.blit(self.headimage, (poslist[i]))
             else:
                 self.screen.blit(self.bodyimage,(poslist[i]))
+
+                self.screen.blit(self.bodyimage, (poslist[i]))
+
+
 # 匯入其他檔案的類、函式
 
 
@@ -198,8 +313,10 @@ def run_game():
     restart = True
     # 建立字型物件，繪製文字，返回surface。引數一：字型  引數二：字號
     socre_font = pygame.font.Font(None, 28)
-    # 記錄分數
+    level_font = pygame.font.Font(None, 28)
+    # 記錄分數&自己的等級
     score = 0
+    level = 1
     # 是否重開
     food_image_list=['./1.png',
                      './2.png',
@@ -224,7 +341,9 @@ def run_game():
     while restart:
         # 類的例項
         snake = Snake(screen)
-        food = Food(screen, food_image_list[0])
+        food1 = Food(screen, food_image_list[0], 1)
+        food2 = Food(screen, food_image_list[1], 2)
+        food3 = Food(screen, food_image_list[2], 3)
         running = True
         # 是否遊戲結束
         while running:
@@ -235,27 +354,83 @@ def run_game():
             # 控制迴圈幀數，引數為每秒幀數
             time_pass = clock.tick(run_settings.speed)
             # 接受食物圖片的外接矩形
-            food_rect = food.foodrect()
+            food1_rect = food1.foodrect()
+            food2_rect = food2.foodrect()
+            food3_rect = food3.foodrect()
             # 繪製這個食物
-            food.blitme()
+            food1.blitball()
+            food2.blitball()
+            food3.blitball()
             # 繪製蛇
             poslist = snake.position()
             snake.draw_snake(poslist)
             head_rect = poslist[0]
+
             # 吃到食物
-            if food_rect.colliderect(head_rect):
-                snake.eatfood(food_rect)
-                food.reinit()
-                score += 1
-                food=Food(screen,food_image_list[score%20])
+            if food1_rect.colliderect(head_rect):
+                #一旦吃到食物就檢查自己的等級是否有比圖片的等級大
+                if food1.level > level:
+                    running = False
+                else:
+                    snake.eatfood(food1_rect)
+                    food1.reinit1()
+                    score += 1
+                    level += 1
+                    if score % 20 == 18 or score % 20 == 19:
+                        #每張圖片的等級都是自己在list裡面的位置+1
+                        food1 = Food(screen, food_image_list[score%20], (score%20)+1)
+                    else:
+                        food1 = Food(screen, food_image_list[(score % 20)+2], (score%20)+3)
+
+            if food2_rect.colliderect(head_rect):
+                if food2.level > level:
+                    running = False
+                else:
+                    snake.eatfood(food2_rect)
+                    food2.reinit2()
+                    score += 1
+                    level += 1
+                    if score % 20 == 18 or score % 20 == 19:
+                        food2 = Food(screen, food_image_list[score%20], (score%20)+1)
+                    else:
+                        food2 = Food(screen, food_image_list[(score % 20)+2], (score%20)+3)
+
+            if food3_rect.colliderect(head_rect):
+                if food3.level > level:
+                    running = False
+                else:
+                    snake.eatfood(food3_rect)
+                    food3.reinit3()
+                    score += 1
+                    level += 1
+                    if score % 20 == 18 or score % 20 == 19:
+                        food3 = Food(screen, food_image_list[score%20], (score%20)+1)
+                    else:
+                        food3 = Food(screen, food_image_list[(score % 20)+2], (score%20)+3)
+            #根據自己的等級來調整速度，30等達最快速度12
+            if level >2 and level <= 8:
+                run_settings.speed = 5
+            if level >8 and level <= 13:
+                run_settings.speed = 7
+            if level >13 and level <=30:
+                run_settings.speed = 10
+            if level >30:
+                run_settings.speed = 12
+            
 
             # 列印內容 引數：字串、是否平滑、顏色
             score_text = socre_font.render("score : "+str(score),True,(255,0,0))
             score_rect = score_text.get_rect()
+            level_text = level_font.render("level : "+str(level),True,(255,0,0))
+            level_rect = level_text.get_rect()
             # 設定字型位置
-            score_rect.centerx = 450
+            score_rect.centerx = 650
             score_rect.centery = 10
             screen.blit(score_text, score_rect)
+
+            level_rect.centerx = 550
+            level_rect.centery = 10
+            screen.blit(level_text, level_rect)
 
             # 檢測是否撞到自己 （蛇頭和身體位置是否重合）
             head_rect = poslist[0]
