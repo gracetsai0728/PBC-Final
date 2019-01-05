@@ -163,6 +163,7 @@ class Snake:
             self.poslist[0][0] -= 32
             if self.poslist[0][0] < 0:
                 self.poslist[0][0] = 485
+            #if self.poslist[0][0] < 0:
         if new_direction is 'R':
             self.poslist[0][0] += 32
             if self.poslist[0][0] > 485:
