@@ -30,13 +30,13 @@ def Record(screen,score):
     score4Rect = score4.get_rect()
     score5Rect = score5.get_rect()
     askRect = ask.get_rect()
-    recordfontRect.centerx,recordfontRect.centery = 225,75
-    score1Rect.centerx,score1Rect.centery = 225,125
-    score2Rect.centerx,score2Rect.centery = 225,175
-    score3Rect.centerx,score3Rect.centery = 225,225
-    score4Rect.centerx,score4Rect.centery = 225,275
-    score5Rect.centerx,score5Rect.centery = 225,325
-    askRect.centerx,askRect.centery = 225,375
+    recordfontRect.centerx,recordfontRect.centery = 350,200
+    score1Rect.centerx,score1Rect.centery = 350,250
+    score2Rect.centerx,score2Rect.centery = 350,300
+    score3Rect.centerx,score3Rect.centery = 350,350
+    score4Rect.centerx,score4Rect.centery = 350,400
+    score5Rect.centerx,score5Rect.centery = 350,450
+    askRect.centerx,askRect.centery = 350,500
     screen.blit(recordfont, recordfontRect)
     screen.blit(score1, score1Rect)
     screen.blit(score2, score2Rect)
