@@ -250,9 +250,9 @@ class Settings():
         self.screen_width = 700
         self.screen_height = 700
         # 設定螢幕背景色
-        self.bg_color = [255, 255, 240]
+        self.bg_color = [255,250,250]
         # 設定蛇移動速度（幀數）
-        self.speed = 3
+        self.speed = 10
         # 設定蛇的顏色
         self.snake_color = [50, 0, 0]
 
@@ -291,35 +291,19 @@ class Snake:
         if new_direction is 'U':
             self.poslist[0][1] -= 32
             # 設定可以穿牆
-
-            #if self.poslist[0][1] < 0:
-                #self.poslist[0][1] = 485
-        if new_direction is 'D':
-            self.poslist[0][1] += 32
-            #if self.poslist[0][1] > 485:
-                #self.poslist[0][1] = 0
-        if new_direction is 'L':
-            self.poslist[0][0] -= 32
-            #if self.poslist[0][0] < 0:
-                #self.poslist[0][0] = 485
-        if new_direction is 'R':
-            self.poslist[0][0] += 32
-            #if self.poslist[0][0] > 485:
-                #self.poslist[0][0] = 0
-
             if self.poslist[0][1] < 0:
-                self.poslist[0][1] = 685
+                self.poslist[0][1] = 700
         if new_direction is 'D':
             self.poslist[0][1] += 32
-            if self.poslist[0][1] > 685:
+            if self.poslist[0][1] > 700:
                 self.poslist[0][1] = 0
         if new_direction is 'L':
             self.poslist[0][0] -= 32
             if self.poslist[0][0] < 0:
-                self.poslist[0][0] = 685
+                self.poslist[0][0] = 700
         if new_direction is 'R':
             self.poslist[0][0] += 32
-            if self.poslist[0][0] > 685:
+            if self.poslist[0][0] > 700:
                 self.poslist[0][0] = 0
 
     def eatfood(self, foodrect): #蛇頭（poslist[0]）變吃掉食物的座標
@@ -481,10 +465,6 @@ def run_game():
             while count > 1:
                 if head_rect==poslist[count - 1]:
                     running = False
-                elif new_direction is 'R':
-                    self.poslist[0][0] += 32
-                    if self.poslist[0][0] > 485:
-                        running = False
                 count -= 1
             # 更新螢幕
             pygame.display.update()
