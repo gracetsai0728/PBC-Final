@@ -1,6 +1,49 @@
 import pygame
 import random
-
+def Record(screen,score):
+    url = r'C:\Users\user\Desktop\snake.txt'
+    with open(url, 'a+', encoding='utf-8', newline='') as record:
+        record.write(','+str(score))
+        record.seek(0) 
+        content = record.read()
+        static = content.split(',')
+        newstatic = [ ]
+        for item in static:
+            item = int(item)
+            newstatic.append(item)
+        newstatic.sort(reverse=True)
+    screen.fill([255, 255, 240])
+    font = pygame.font.Font(None, 38)
+    recordfont = font.render('Record', True, (255, 0, 0))
+    if score == newstatic[0] or score == newstatic[1] or score == newstatic[2] or score == newstatic[3] or score == newstatic[4]:
+        recordfont = font.render('Congratulation! Break the record!', True, (255, 0, 0))
+    score1 = font.render('%1s %10s' %('1st',str(newstatic[0])), True, (251, 218, 31))
+    score2 = font.render('%1s %10s' %('2nd',str(newstatic[1])), True, (209, 208, 200))
+    score3 = font.render('%1s %10s' %('3rd',str(newstatic[2])), True, (102, 91, 27))
+    score4 = font.render('%1s %10s' %('4th',str(newstatic[3])), True, (5, 4, 4))
+    score5 = font.render('%1s %10s' %('5th',str(newstatic[4])), True, (5, 4, 4))
+    ask =  font.render('Play again? Press blank ', True, (255, 0, 0))
+    recordfontRect = recordfont.get_rect()
+    score1Rect = score1.get_rect()
+    score2Rect = score2.get_rect()
+    score3Rect = score3.get_rect()
+    score4Rect = score4.get_rect()
+    score5Rect = score5.get_rect()
+    askRect = ask.get_rect()
+    recordfontRect.centerx,recordfontRect.centery = 225,75
+    score1Rect.centerx,score1Rect.centery = 225,125
+    score2Rect.centerx,score2Rect.centery = 225,175
+    score3Rect.centerx,score3Rect.centery = 225,225
+    score4Rect.centerx,score4Rect.centery = 225,275
+    score5Rect.centerx,score5Rect.centery = 225,325
+    askRect.centerx,askRect.centery = 225,375
+    screen.blit(recordfont, recordfontRect)
+    screen.blit(score1, score1Rect)
+    screen.blit(score2, score2Rect)
+    screen.blit(score3, score3Rect)
+    screen.blit(score4, score4Rect)
+    screen.blit(score5, score5Rect)
+    screen.blit(ask, askRect)
 #先假設三個食物一開始的座標不會影響到後面的座標
 pre_food1 = [1000000, 100000000]
 pre_food2 = [1000000, 100000000]
@@ -446,16 +489,8 @@ def run_game():
             # 更新螢幕
             pygame.display.update()
             # 遊戲結束介面
-        screen.fill([255, 255, 240])
-        # 一個字型物件，引數一：字型（None為預設）  引數二：字型大小
-        font = pygame.font.Font(None, 38)
-
-        # 繪製文字，返回surface
-        text = font.render("Game Over! press space to restart. ", True, (255, 0, 0))
-        textRect = text.get_rect()
-        textRect.centerx = screen.get_rect().centerx
-        textRect.centery = screen.get_rect().centery
-        screen.blit(text, textRect)
+        Record(screen,score)
+        
         # 是否重開
         while True:
             event = pygame.event.poll()
