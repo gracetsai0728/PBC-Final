@@ -252,7 +252,7 @@ class Settings():
         # 設定螢幕背景色
         self.bg_color = [255,250,250]
         # 設定蛇移動速度（幀數）
-        self.speed = 10
+        self.speed = 3
         # 設定蛇的顏色
         self.snake_color = [50, 0, 0]
 
