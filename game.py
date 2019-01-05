@@ -1,7 +1,7 @@
 import pygame
 import random
 
-#我先假設三個食物一開始的座標不會影響到後面的座標
+#先假設三個食物一開始的座標不會影響到後面的座標
 pre_food1 = [1000000, 100000000]
 pre_food2 = [1000000, 100000000]
 pre_food3 = [1000000, 100000000]
@@ -17,7 +17,7 @@ class Food:
         self.image = pygame.image.load(picture)
         # 獲得圖片外接矩陣
         self.rect = self.image.get_rect()
-
+        #使傳進來的每張圖片獲得對應的等級
         self.level = level
 
         # 隨機獲得圖片中心橫縱座標
@@ -129,7 +129,6 @@ class Food:
         """返回外接矩矩形"""
 
         return self.rect
-
 
     def blitball(self):
         """在指定位置繪製食物"""
@@ -297,7 +296,7 @@ def run_game():
     # 建立字型物件，繪製文字，返回surface。引數一：字型  引數二：字號
     socre_font = pygame.font.Font(None, 28)
     level_font = pygame.font.Font(None, 28)
-    # 記錄分數
+    # 記錄分數&自己的等級
     score = 0
     level = 1
     # 是否重開
@@ -351,6 +350,7 @@ def run_game():
 
             # 吃到食物
             if food1_rect.colliderect(head_rect):
+                #一旦吃到食物就檢查自己的等級是否有比圖片的等級大
                 if food1.level > level:
                     running = False
                 else:
@@ -359,10 +359,10 @@ def run_game():
                     score += 1
                     level += 1
                     if score % 20 == 18 or score % 20 == 19:
+                        #每張圖片的等級都是自己在list裡面的位置+1
                         food1 = Food(screen, food_image_list[score%20], (score%20)+1)
                     else:
                         food1 = Food(screen, food_image_list[(score % 20)+2], (score%20)+3)
-
 
             if food2_rect.colliderect(head_rect):
                 if food2.level > level:
@@ -389,7 +389,7 @@ def run_game():
                         food3 = Food(screen, food_image_list[score%20], (score%20)+1)
                     else:
                         food3 = Food(screen, food_image_list[(score % 20)+2], (score%20)+3)
-
+            #根據自己的等級來調整速度，30等達最快速度12
             if level >2 and level <= 8:
                 run_settings.speed = 5
             if level >8 and level <= 13:
