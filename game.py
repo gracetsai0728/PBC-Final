@@ -1,5 +1,8 @@
 import pygame
 import random
+import sys
+from pygame.locals import *
+
 def Record(screen,score):
     url = r'C:\Users\user\Desktop\snake.txt'
     with open(url, 'a+', encoding='utf-8', newline='') as record:
@@ -365,6 +368,14 @@ def run_game():
                      './18.png',
                      './19.png',
                      './20.png']
+	pygame.init()
+#初始化
+	pygame.mixer.init() 
+	pygame.mixer.music.load("./pokebmusic.wav")
+	pygame.mixer.music.set_volume(0.2)
+	pygame.mixer.music.play() #開始始播放
+	pygame.event.wait() 
+
     while restart:
         # 類的例項
         snake = Snake(screen)
