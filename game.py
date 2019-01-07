@@ -368,13 +368,13 @@ def run_game():
                      './18.png',
                      './19.png',
                      './20.png']
-	pygame.init()
+    pygame.init()
 #初始化
-	pygame.mixer.init() 
-	pygame.mixer.music.load("./pokebmusic.wav")
-	pygame.mixer.music.set_volume(0.2)
-	pygame.mixer.music.play() #開始始播放
-	pygame.event.wait() 
+    pygame.mixer.init()
+    pygame.mixer.music.load("./pokebmusic.wav")
+    pygame.mixer.music.set_volume(0.2)
+    pygame.mixer.music.play() #開始始播放
+    pygame.event.wait()
 
     while restart:
         # 類的例項
