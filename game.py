@@ -12,7 +12,7 @@ def Record(screen,score):
         static = content.split(',')
         newstatic = [ ]
         for item in static:
-            item = int(item)
+            item = str(item)
             newstatic.append(item)
         newstatic.sort(reverse=True)
     screen.fill([255, 255, 240])
