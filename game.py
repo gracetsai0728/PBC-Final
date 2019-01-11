@@ -4,7 +4,7 @@ import sys
 from pygame.locals import *
 
 def Record(screen,score):
-    url = r'C:\Users\user\Desktop\snake.txt'
+    url = r'.\snake.txt'
     with open(url, 'a+', encoding='utf-8', newline='') as record:
         record.write(','+str(score))
         record.seek(0) 
