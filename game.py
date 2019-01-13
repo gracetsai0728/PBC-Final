@@ -183,7 +183,6 @@ class Food:
 
 
 
-import pygame
 #初始化移動狀態，使一開始向上移動
 move_up = True
 move_down = False
@@ -243,7 +242,6 @@ def redirection(snake):
         snake.direction('R')
 
 
-
 class Settings():
     """儲存遊戲所有設定的類"""
 
@@ -253,25 +251,23 @@ class Settings():
         self.screen_width = 700
         self.screen_height = 700
         # 設定螢幕背景色
-        self.bg_color = [255,250,250]
+        self.bg_color = [185, 222, 201]
         # 設定蛇移動速度（幀數）
         self.speed = 3
         # 設定蛇的顏色
         self.snake_color = [50, 0, 0]
 
-
 import copy
-
 
 class Snake:
     def __init__(self,screen):
         """初始化第一個點（蛇頭）的位置"""
         # 建立儲存每個點位置的列表，目前只有蛇頭
         self.screen = screen
-        self.poslist = [[250, 250,25,25]]
+        self.poslist = [[250, 250, 25, 25]]
         # 載身體圖片並獲取外接矩形
-        self.headimage=pygame.image.load('./player3.png')
-        self.bodyimage=pygame.image.load('./pokeball.png')
+        self.headimage = pygame.image.load('./player3.png')
+        self.bodyimage = pygame.image.load('./pokeball.png')
 
     def position(self):
         """return儲存連續點位置的列表"""
@@ -325,8 +321,6 @@ class Snake:
                 self.screen.blit(self.bodyimage, (poslist[i]))
 
 
-# 匯入其他檔案的類、函式
-
 
 def run_game():
     # 初始化pygame
@@ -339,7 +333,7 @@ def run_game():
     screen = pygame.display.set_mode((run_settings.screen_width,
                                       run_settings.screen_height))
     # 設定視窗名字
-    pygame.display.set_caption("貪吃蛇")
+    pygame.display.set_caption("寶可夢貪吃蛇")
     restart = True
     # 建立字型物件，繪製文字，返回surface。引數一：字型  引數二：字號
     socre_font = pygame.font.Font(None, 28)
