@@ -12,7 +12,7 @@ def Record(screen,score):
         static = content.split(',')
         newstatic = [ ]
         for item in static:
-            item = str(item)
+            item = int(str(item))
             newstatic.append(item)
         newstatic.sort(reverse=True)
     screen.fill([255, 255, 240])
@@ -290,20 +290,20 @@ class Snake:
         if new_direction is 'U':
             self.poslist[0][1] -= 32
             # 設定可以穿牆
-            if self.poslist[0][1] < 0:
-                self.poslist[0][1] = 700
+            if self.poslist[0][1] < 10:
+                self.poslist[0][1] = 690
         if new_direction is 'D':
             self.poslist[0][1] += 32
-            if self.poslist[0][1] > 700:
-                self.poslist[0][1] = 0
+            if self.poslist[0][1] > 690:
+                self.poslist[0][1] = 10
         if new_direction is 'L':
             self.poslist[0][0] -= 32
-            if self.poslist[0][0] < 0:
-                self.poslist[0][0] = 700
+            if self.poslist[0][0] < 10:
+                self.poslist[0][0] = 690
         if new_direction is 'R':
             self.poslist[0][0] += 32
-            if self.poslist[0][0] > 700:
-                self.poslist[0][0] = 0
+            if self.poslist[0][0] > 690:
+                self.poslist[0][0] = 10
 
     def eatfood(self, foodrect): #蛇頭（poslist[0]）變吃掉食物的座標
         """吃掉食物並加入列表"""
